@@ -8,7 +8,8 @@ console.log("===============================")
 console.log(mensaje)
 
 let pedid
+ped("sopa",60);
 function pedido(pedid){
     push(pedido, pedid)
-return
+return pedido
 }
