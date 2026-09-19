@@ -1,15 +1,47 @@
-/* console.log: funciones para imprimir en la consola en javascript
-funciones: bloques de código que realizan una tarea específica
-template strings: es una forma de escribir cadenas de texto en JavaScript para insertar variables y expresiones de manera sencilla*/
+const pedidos = [];
+let pacumulado = 0;
+const mensaje = `Hola, bienvenido. Elige tu pedido`;
 
-const mensaje = `Hola, bienvenido. elige tu pedido`;
-const pedido = ""
-console.log("===============================")
-console.log(mensaje)
-
-let pedid
-ped("sopa",60);
-function pedido(pedid){
-    push(pedido, pedid)
-return pedido
+console.log("===============================");
+console.log(mensaje);
+function agregarPedido(nombre, precio) {
+    pedidos.push({
+        nombre: nombre,
+        precio: precio
+    });
+    pacumulado += precio;
+    console.log(`Pedido agregado: ${nombre} - Precio: $${precio}`);
+    console.log(`Total acumulado: $${pacumulado}`);
 }
+function listarPedidos() {
+
+    console.log("\n==========pedidos==========");
+
+    pedidos.forEach((pedido, indice) => {
+        console.log(
+            `${indice + 1}. ${pedido.nombre} - $${pedido.precio}`
+        );
+    });
+
+    return pedidos;
+}
+
+function totalAcumulado() {
+    return pacumulado;
+}
+function consultarProducto(nombre) {
+
+    const producto = pedidos.find(
+        pedido => pedido.nombre.toLowerCase() === nombre.toLowerCase()
+    );
+
+    return producto;
+}
+
+module.exports = {
+    pedidos,
+    agregarPedido,
+    listarPedidos,
+    totalAcumulado,
+    consultarProducto
+};
