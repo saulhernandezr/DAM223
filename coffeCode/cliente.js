@@ -1,37 +1,87 @@
-import {menuCocina}from "./cocina.js";
-
-import {pedidos,agregarPedido,modificarPedido,eliminarPedido,listarPedidos
+import { menuCocina } from "./cocina.js";
+import {
+    pedidos,
+    agregarPedido,
+    modificarPedido,
+    eliminarPedido,
+    listarPedidos,
 } from "./caja.js";
 import readline from "readline";
 
 const entrada = readline.createInterface({
     input: process.stdin,
-    output: process.stdout
+    output: process.stdout,
 });
 
-function menu(){
-console.log("\n!! MENU !!");
-    console.log("1.Gestionar Cocina");
-    console.log("2. Listar pedido");
-    console.log("3. Salir");
-entrada.question("Elige una opcion? ",function(opcion){
+function pedirOpcion() {
+    return new Promise((resolve) => {
+        entrada.question("Elige una opcion? ", (opcion) => {
+            resolve(opcion.trim());
+        });
+    });
+}
 
-if(opcion=="1"){
-menuCocina(entrada,menu,agregarPedido,modificarPedido,eliminarPedido,listarPedidos,pedidos);
+function mostrarMenu(titulo, opciones) {
+    console.log(`\n${titulo}`);
+    opciones.forEach((opcion) => {
+        console.log(`${opcion.id}. ${opcion.label}`);
+    });
+}
 
-        }else if(opcion=="2"){
-            listarPedidos();
-            menu();
+async function menu() {
+    const opciones = [
+        {
+            id: "1",
+            label: "Gestionar Cocina",
+            accion: () => {
+                menuCocina(
+                    entrada,
+                    menu,
+                    agregarPedido,
+                    modificarPedido,
+                    eliminarPedido,
+                    listarPedidos,
+                    pedidos
+                );
+            },
+        },
+        {
+            id: "2",
+            label: "Listar pedido",
+            accion: () => {
+                listarPedidos();
+                menu();
+            },
+        },
+        {
+            id: "3",
+            label: "Promociones",
+            accion: () => {
+                console.log("No hay promociones activas por el momento.");
+                menu();
+            },
+        },
+        {
+            id: "4",
+            label: "Salir",
+            accion: () => {
+                console.log("Hasta luego");
+                entrada.close();
+            },
+        },
+    ];
 
-        }else if(opcion == "3"){
-    entrada.close();
+    mostrarMenu("!! MENU !!", opciones);
+    const opcion = await pedirOpcion();
+    const seleccion = opciones.find((item) => item.id === opcion);
 
-        }else {
-    console.log("no valido");
-menu();
+    if (!seleccion) {
+        console.log("Opción no válida");
+        menu();
+        return;
+    }
 
-        }
-     });
+    seleccion.accion();
 }
 
 menu();
