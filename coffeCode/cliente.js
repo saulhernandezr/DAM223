@@ -1,8 +1,10 @@
-import {menuCocina,productos,agregarProducto} from "./cocina.js";
-import {pedidos,agregarPedido,modificarPedido,eliminarPedido,listarPedidos} from "./caja.js";
+import {menuCocina,productos,agregarProducto,preparar} from "./cocina.js";
+import {pedidos,agregarPedido,modificarPedido,eliminarPedido,listarPedidos,notificarPedido} from "./caja.js";
 import readline from "readline";
 
 const entrada=readline.createInterface({input:process.stdin,output:process.stdout});
+
+let inicioPedido=0;
 
 function menuDinamico(){
     console.log("\n!! menu dinamico !!");
@@ -30,21 +32,66 @@ function promociones(){
 }
 
 function productosDisponibles(){
-    console.log("\n! productos disponibles !!");
+    console.log("\n!! productos disponibles !!");
     productos.forEach(function(producto){
         console.log(`${producto.nombre}-$${producto.precio}`);
     });
 }
+
 function agregarPlatillo(){
     entrada.question("nombre del platillo: ",function(nombre){
         entrada.question("precio: ",function(precio){
-        entrada.question("tipo:",function(tipo){
-        agregarProducto(nombre,Number(precio),tipo);
-        console.log(`se agrego ${nombre} al menu`);
-        menu();
+            entrada.question("tipo: ",function(tipo){
+                agregarProducto(nombre,Number(precio),tipo);
+                console.log(`se agrego ${nombre} al menu`);
+                menu();
             });
         });
     });
+}
+
+function prepararPedido(){
+    if(pedidos.length==inicioPedido){
+        console.log("\nno hay productos");
+        menu();
+        return;
+    }
+
+    const pedidoActual=pedidos.slice(inicioPedido);
+
+    console.log("\npedido recibido");
+
+    setTimeout(function(){
+        console.log("\npreparando........");
+
+        preparar(pedidoActual)
+        .then(function(resultado){
+            console.log("\nempacando........");
+
+            setTimeout(function(){
+                notificarPedido(resultado,function(mensaje){
+                    console.log("\n"+mensaje);
+
+                    setTimeout(function(){
+                        console.log("\npedido entregado");
+                        inicioPedido=pedidos.length;
+                        menu();
+                    },1000);
+                });
+            },2000);
+        })
+        .catch(function(error){
+            console.log("\n"+error);
+
+            pedidos.splice(inicioPedido,pedidos.length-inicioPedido);
+
+            notificarPedido("cancelado",function(mensaje){
+                console.log("\n"+mensaje);
+                inicioPedido=pedidos.length;
+                menu();
+            });
+        });
+    },2000);
 }
 
 function menu(){
@@ -59,6 +106,8 @@ function menu(){
 
     entrada.question("escoje una opcion: ",function(opcion){
         if(opcion=="1"){
+            inicioPedido=pedidos.length;
+
             menuCocina(
                 entrada,
                 menu,
@@ -66,24 +115,32 @@ function menu(){
                 modificarPedido,
                 eliminarPedido,
                 listarPedidos,
-                pedidos
+                pedidos,
+                prepararPedido
             );
+
         }else if(opcion=="2"){
             listarPedidos();
             menu();
+
         }else if(opcion=="3"){
             menuDinamico();
             menu();
+
         }else if(opcion=="4"){
             promociones();
             menu();
+
         }else if(opcion=="5"){
             productosDisponibles();
             menu();
+
         }else if(opcion=="6"){
             agregarPlatillo();
+
         }else if(opcion=="7"){
             entrada.close();
+
         }else{
             console.log("ups no existe");
             menu();
