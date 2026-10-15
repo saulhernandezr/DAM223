@@ -2,6 +2,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import {Saludo} from './components/Saludo';
+import {Perfil} from './components/Perfil';
 
 import {Saludo2} from './components/Saludo2';
 
@@ -14,6 +15,7 @@ export default function App() {
       <Image source={require('./assets/wave.png')}></Image>
       <Saludo></Saludo>
       <Saludo2></Saludo2>
+      <Perfil></Perfil>
     </View>
   );
 }
