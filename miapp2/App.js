@@ -1,35 +1,16 @@
 /* zona de importaciones */
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View,Image } from 'react-native';
-import { Saludo } from './components/Saludo';
-import { Saludo2 } from './components/Saludo2';
-import { Perfil, estilos  } from './components/Perfil';
+import { Perfil } from './components/Perfil';
+import Menuscreen from './screens/Menuscreen';
 
 /* zona de componentes o screens*/
 export default function App() {
   return (
     <View style={styles.container}>
-      
-      <Perfil nombre="saul hernandez" 
-      carrera="TIID" 
-      materia="Movil"
-      cuatrimestre="Cuarto cuatrimestre"
-        style={styles.tarjeta1}>
-      </Perfil>
+      <Menuscreen></Menuscreen>
 
-      <Perfil nombre="alfredo" 
-      carrera="TIID" 
-      materia="Movil"
-      cuatrimestre="Cuarto cuatrimestre"
-      style={styles.tarjeta2}>
-      </Perfil>
-
-      <Perfil nombre="paul" 
-      carrera="TIID" 
-      materia="Movil"
-      cuatrimestre="Cuarto cuatrimestre"
-      style={styles.tarjeta3}>
-      </Perfil>
+     
 
       <StatusBar style="auto" />
     </View>
