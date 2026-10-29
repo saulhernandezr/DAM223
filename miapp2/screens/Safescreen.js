@@ -1,30 +1,37 @@
-/* zona de importaciones */
-import { StyleSheet, Text, View,Image } from 'react-native';
+/* 1.ZONA DE IMPORTACIONES */
+import { StyleSheet, View , Text, ScrollView} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import SafeAreaEjemplo from '../components/SafeAreaEjemplo';
+import ScrollViewEjemplo from '../components/ScrollViewEjemplo';
 
-/* zona de componentes o screens*/
-export default function Safescreen() {
+/* 2.ZONA DEL MAIN(COMPONENTES, SCREENS) / EJECUCION*/
+export default function SafeScreen() {
   return (
-    <View style={styles.container}>
-      <Text>aqui va la practica 10</Text>
-      <Text>equipo dulce</Text>
-    </View>
+      <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
+
+      <Text style={styles.tituloPrincipal}>
+        Aqui va la practica 10 - equipo de dulce
+      </Text>
+
+      <SafeAreaEjemplo />
+
+      <ScrollViewEjemplo/>
+      </SafeAreaView>
   );
 }
-
-
-/* zona esteticos */
+/* 3.ZONA DE LA ESTETICA */
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#7d7d7d',
-    /* alinea y posiciona los elementos */
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    
-    flexDirection:'column',
-    justifyContent: 'space-evenly',
+ container: {
+  flex: 1,
+  backgroundColor: '#ffffff',
+  padding:15,
+},
+  tituloPrincipal: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 15,
   },
-
+   
 
 });

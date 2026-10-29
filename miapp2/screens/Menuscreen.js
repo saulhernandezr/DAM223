@@ -4,6 +4,11 @@ import { useState } from 'react';
 import Safescreen from './Safescreen';
 import Pressablescreen from './Pressablescreen';
 import Tarjetasscreen from './Tarjetasscreen';
+import Textscreen from './Textscreen';
+import Flatscreen from './FlatScreen';
+import Imagescreen from './Imagescreen';
+import Modalscreen from './Modalscreen';
+import Activityscreen from './Activityscreen';
 
 /* zona de componentes o screens*/
 export default function Menuscreen() {
@@ -13,8 +18,19 @@ export default function Menuscreen() {
             return <Safescreen/>;
         case 'press':
             return <Pressablescreen/>;
+        case 'text':
+            return <Textscreen/>
+        case 'flat':
+            return <Flatscreen/>;
+        case 'image':
+            return <Imagescreen/>;
+        case 'modal':
+            return <Modalscreen/>
+        case 'activity':
+            return <Activityscreen/>
         case 'tarjetas':
             return <Tarjetasscreen/>;
+        
         case 'menu':
             default:  
             return (
@@ -24,6 +40,11 @@ export default function Menuscreen() {
                 <Button title="practica tarjetas" onPress={()=>setscreen('tarjetas')}></Button>
                 <Button title="practica safeareaview" onPress={()=>setscreen('safe')}></Button>
                 <Button title="practica pressable" onPress={()=>setscreen('press')}></Button>
+                <Button title="practica text" onPress={()=>setscreen('text')}></Button>
+                <Button title="practica flatlist" onPress={()=>setscreen('flat')}></Button>
+                <Button title="practica imagebackgroung" onPress={()=>setscreen('image')}></Button>
+                <Button title="practica modal" onPress={()=>setscreen('modal')}></Button>
+                <Button title="practica activityindicator" onPress={()=>setscreen('activity')}></Button>
                 </View>
     );
 

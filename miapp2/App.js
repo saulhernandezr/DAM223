@@ -3,10 +3,12 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View,Image } from 'react-native';
 import { Perfil } from './components/Perfil';
 import Menuscreen from './screens/Menuscreen';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 /* zona de componentes o screens*/
 export default function App() {
   return (
+    <SafeAreaProvider>
     <View style={styles.container}>
       <Menuscreen></Menuscreen>
 
@@ -14,6 +16,7 @@ export default function App() {
 
       <StatusBar style="auto" />
     </View>
+    </SafeAreaProvider>
   );
 }
 
