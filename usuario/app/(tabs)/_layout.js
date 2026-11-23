@@ -1,4 +1,5 @@
 import {Tabs} from "expo-router";
+import {Ionicons} from "react-native";
 
 export default function TabsLayout(){
     return(
@@ -13,7 +14,9 @@ export default function TabsLayout(){
         />
          <Tabs.Screen
             name="consulta"
-            options={{title:"listado"}}
+            options={{title:"listado",
+                tabBarIcon:({color,size})=>(<Ionicons name="person-add" size={15} color={"red"}/>)
+            }}
         />
     </Tabs>
     )
