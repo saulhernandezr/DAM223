@@ -14,8 +14,7 @@ export default function TabsLayout(){
         />
          <Tabs.Screen
             name="consulta"
-            options={{title:"listado",
-                tabBarIcon:({color,size})=>(<Ionicons name="person-add" size={15} color={"red"}/>)
+            options={{title:"listado"
             }}
         />
     </Tabs>
